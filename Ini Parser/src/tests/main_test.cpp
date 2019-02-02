@@ -22,11 +22,20 @@ public:
 
 int main()
 {
-    LogWriter Clerk;
+    try
+    {
+        LogWriter Clerk;
+        
+        ConfigurationFile develop_test(std::string("develop_test.ini"));
+        Clerk.ScratchMessage(std::string("Configuration file: " + develop_test.GetFileName()));
+        
+        std::cout << "\nYes!\n";
+        return 0;
+    }
+    catch (std::exception &e)
+    {
+        LogWriter Clerk;
+        Clerk.ScratchMessage(e.what());
+    }
     
-    ConfigurationFile develop_test(std::string("develop_test.ini"));
-    Clerk.ScratchMessage(std::string("Configuration file: " + develop_test.GetFileName()));
-    
-    std::cout << "\nYes!\n";
-    return 0;
 }
