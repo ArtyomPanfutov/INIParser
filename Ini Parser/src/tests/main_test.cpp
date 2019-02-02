@@ -25,12 +25,21 @@ int main()
     try
     {
         LogWriter Clerk;
+        std::string FoundValue;
+        int RetVal;
         
         ConfigurationFile develop_test(std::string("develop_test.ini"));
         Clerk.ScratchMessage(std::string("Configuration file: " + develop_test.GetFileName()));
         
         Clerk.ScratchMessage(std::string("\n All lines from file: \n"));
         develop_test.DisplayAllLines();
+        
+        RetVal = develop_test.GetValue(std::string("Options"), std::string ("Parameter_1"), FoundValue);
+        
+        if (RetVal == 0)
+            Clerk.ScratchMessage(std::string("Found value = ") +  FoundValue);
+        else
+            Clerk.ScratchMessage(std::string("Not found."));
         
         std::cout << "\nYes!\n";
         return 0;

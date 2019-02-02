@@ -11,6 +11,9 @@
 #include <fstream>
 #include <iostream>
 
+//
+// Constructors
+///////////////////////////////////////////////////////////////////////////
 ConfigurationFile::ConfigurationFile (std::string File)
 {
     FileName   = File;
@@ -26,7 +29,11 @@ ConfigurationFile::ConfigurationFile (std::string File, bool IsReadOnly)
     
     InitFile();
 }
+//-------------------------------------------------------------------------
 
+//
+// InitFile() - Open file and read all lines
+///////////////////////////////////////////////////////////////////////////
 void ConfigurationFile::InitFile()
 {
     std::string BufferString;
@@ -52,12 +59,20 @@ void ConfigurationFile::InitFile()
     
     IniFile.close();
 }
+//-----------------------------------------------------------------------
 
+//
+// GetFileName()
+////////////////////////////////////////////////////////////////////////
 std::string ConfigurationFile::GetFileName()
 {
     return FileName;
 }
+//----------------------------------------------------------------------
 
+//
+// DsiplayAllLines()
+///////////////////////////////////////////////////////////////////////
 void ConfigurationFile::DisplayAllLines()
 {
     for (const auto& Line : ReadedLines)
@@ -65,3 +80,60 @@ void ConfigurationFile::DisplayAllLines()
         std::cout << Line << "\n";
     }
 }
+//---------------------------------------------------------------------
+
+//
+// GetValue:
+//   Section  - Section name. Can be with or without square brackets.
+//   Property - Property name.
+//   Found    - Found value.
+// Returns 0 if success.
+//////////////////////////////////////////////////////////////////////
+int ConfigurationFile::GetValue(std::string Section, std::string Property, std::string &Found)
+{
+    std::size_t       FoundPosition;
+    std::size_t       StartPosition;
+    bool              IsSectionFound = false;
+    const std::string CommentSymbol  = ";";
+    
+    FoundPosition = Section.find(std::string("["));
+    
+    if (FoundPosition == std::string::npos)
+    {
+        Section = std::string("[") + Section + std::string("]");
+    }
+    
+    for (const auto& Line : ReadedLines)
+    {
+        StartPosition = 0;
+        FoundPosition = Line.find(CommentSymbol);
+        
+        if (FoundPosition != std::string::npos)
+            StartPosition = FoundPosition;
+        
+        if (!IsSectionFound)
+        {
+            FoundPosition = Line.find(Section, StartPosition);
+            
+            if (FoundPosition != std::string::npos)
+                IsSectionFound = true;
+        }
+        else
+        {
+            FoundPosition = Line.find(Property, StartPosition);
+            
+            if (FoundPosition != std::string::npos)
+            {
+                FoundPosition = Line.find("=");
+                
+                if (FoundPosition == std::string::npos)
+                    return -1;
+                
+                Found = Line.substr(++FoundPosition, Line.length() - FoundPosition);
+                return 0;
+            }
+        }
+    }
+    return -1;
+}
+//--------------------------------------------------------------------
