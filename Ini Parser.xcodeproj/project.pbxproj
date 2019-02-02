@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9AF6E4662206128300446156 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AF6E4652206128300446156 /* main.cpp */; };
+		9AF6E46F2206140500446156 /* IniParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AF6E46E2206140500446156 /* IniParser.cpp */; };
+		9AF6E4722206149300446156 /* main_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AF6E4712206149300446156 /* main_test.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +25,9 @@
 
 /* Begin PBXFileReference section */
 		9AF6E4622206128300446156 /* Ini Parser */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Ini Parser"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9AF6E4652206128300446156 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		9AF6E46D2206132900446156 /* IniParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IniParser.h; sourceTree = "<group>"; };
+		9AF6E46E2206140500446156 /* IniParser.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IniParser.cpp; sourceTree = "<group>"; };
+		9AF6E4712206149300446156 /* main_test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main_test.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,9 +60,27 @@
 		9AF6E4642206128300446156 /* Ini Parser */ = {
 			isa = PBXGroup;
 			children = (
-				9AF6E4652206128300446156 /* main.cpp */,
+				9AF6E46C220612A600446156 /* src */,
 			);
 			path = "Ini Parser";
+			sourceTree = "<group>";
+		};
+		9AF6E46C220612A600446156 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				9AF6E4702206147A00446156 /* tests */,
+				9AF6E46D2206132900446156 /* IniParser.h */,
+				9AF6E46E2206140500446156 /* IniParser.cpp */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		9AF6E4702206147A00446156 /* tests */ = {
+			isa = PBXGroup;
+			children = (
+				9AF6E4712206149300446156 /* main_test.cpp */,
+			);
+			path = tests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -118,7 +139,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9AF6E4662206128300446156 /* main.cpp in Sources */,
+				9AF6E4722206149300446156 /* main_test.cpp in Sources */,
+				9AF6E46F2206140500446156 /* IniParser.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,6 +262,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = W39JWZ73HL;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -248,6 +271,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = W39JWZ73HL;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
