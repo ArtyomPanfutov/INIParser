@@ -14,3 +14,8 @@ ConfigurationFile::ConfigurationFile (std::string File)
     FileName = File;
 }
 
+std::string ConfigurationFile::GetFileName()
+{
+    return FileName;
+}
+

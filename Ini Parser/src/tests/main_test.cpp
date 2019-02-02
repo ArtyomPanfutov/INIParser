@@ -8,10 +8,25 @@
 
 #include <stdio.h>
 #include <iostream>
+#include <string>
 #include "../IniParser.h"
+
+class LogWriter
+{
+public:
+    void ScratchMessage(std::string Message)
+    {
+        std::cout << std::endl << "Tester ->> "  << Message;
+    }
+};
 
 int main()
 {
-    std::cout << "Yes!";
+    LogWriter Clerk;
+    
+    ConfigurationFile develop_test(std::string("develop_test.ini"));
+    Clerk.ScratchMessage(std::string("Configuration file: " + develop_test.GetFileName()));
+    
+    std::cout << "\nYes!\n";
     return 0;
 }

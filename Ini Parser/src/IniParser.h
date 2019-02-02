@@ -15,6 +15,7 @@ class ConfigurationFile
     std::string FileName;
 public:
     ConfigurationFile (std::string File);
+    std::string GetFileName();
 };
 
 #endif /* IniParser_h */
