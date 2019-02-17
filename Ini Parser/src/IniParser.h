@@ -20,18 +20,21 @@ class ConfigurationFile
     std::vector<std::string> ReadedLines;
     
     void InitFile();
-    void DeallocateCache();
+    inline void DeallocateCache();
+    inline void ClearCache();
 public:
     ConfigurationFile (std::string File);
     ConfigurationFile (std::string File, bool IsReadOnly);
     ~ConfigurationFile();
     
     std::string GetFileName();
-    size_t GetValue(std::string Section, std::string Property, std::string &Value);
-    void DisplayAllLines();
-    void Reload();
+    size_t      GetValue(std::string Section, std::string Property, std::string &Value);
+    void        DisplayAllLines();
+    void        Reload();
     
     void InsertSection(std::string SectionName);
+    void InsertProperty(std::string Section, std::string Property, std::string Value);
+    int  FindSection(std::string Section);
 };
 
 #endif /* IniParser_h */

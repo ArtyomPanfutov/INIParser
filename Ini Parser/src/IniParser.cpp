@@ -107,6 +107,8 @@ size_t ConfigurationFile::GetValue(std::string Section, std::string Property, st
     bool              IsSectionFound = false;
     const std::string CommentSymbol  = ";";
     
+    Reload(); // Actualize cache
+    
     FoundPosition = Section.find(std::string("["));
     
     if (FoundPosition == std::string::npos)
@@ -179,7 +181,7 @@ void ConfigurationFile::InsertSection(std::string SectionName)
 ///////////////////////////////////////////////////////////////////////
 void ConfigurationFile::Reload()
 {
-    DeallocateCache();
+    ClearCache();
     InitFile();
 }
 //---------------------------------------------------------------------
@@ -188,11 +190,81 @@ void ConfigurationFile::Reload()
 // DeallocateCache:
 //   - Clear the vector and deallocate memory
 ///////////////////////////////////////////////////////////////////////
-void ConfigurationFile::DeallocateCache()
+inline void ConfigurationFile::DeallocateCache()
 {
-    ReadedLines.clear();
+    ClearCache();
     ReadedLines.shrink_to_fit(); // Shrink the capacity to fit the size (which is 0 now)
 }
 //---------------------------------------------------------------------
 
+//
+// ClearCache:
+//   - Clear the vector
+///////////////////////////////////////////////////////////////////////
+inline void ConfigurationFile::ClearCache()
+{
+    ReadedLines.clear();
+}
+//---------------------------------------------------------------------
 
+//
+// InsertProperty:
+//   Section  - Section name. Can be with or without square brackets. If section will not be found -> insert it
+//   Property - Property name.
+//   Found    - Value.
+///////////////////////////////////////////////////////////////////////
+void ConfigurationFile::InsertProperty(std::string Section, std::string Property, std::string Value)
+{
+  
+    
+
+}
+//---------------------------------------------------------------------
+
+//
+// FindSection
+//   Returns -1 if not found. Else number of line
+///////////////////////////////////////////////////////////////////////
+int ConfigurationFile::FindSection(std::string Section)
+{
+    size_t            FoundPosition;
+    size_t            StartPosition;
+    int               CurrentLine    = -1;
+    bool              IsSectionFound = false;
+    const std::string CommentSymbol  = ";";
+    
+    Reload(); // Actualize cache
+    
+    FoundPosition = Section.find(std::string("["));
+    
+    if (FoundPosition == std::string::npos)
+    {
+        Section = std::string("[") + Section + std::string("]");
+    }
+    
+    for (const auto& Line : ReadedLines)
+    {   CurrentLine++;
+        StartPosition = 0;
+        FoundPosition = Line.find(CommentSymbol);
+        
+        if (FoundPosition != std::string::npos)
+            StartPosition = FoundPosition;
+        
+        if (!IsSectionFound)
+        {
+            FoundPosition = Line.find(Section, StartPosition);
+            
+            if (FoundPosition != std::string::npos)
+            {
+                IsSectionFound = true;
+                break;
+            }
+        }
+    }
+    
+    if (IsSectionFound)
+        return CurrentLine;
+    else
+        return -1;
+}
+//---------------------------------------------------------------------
