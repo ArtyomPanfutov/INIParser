@@ -20,6 +20,7 @@ class ConfigurationFile
     std::vector<std::string> ReadedLines;
     
     void InitFile();
+    void DeallocateCache();
 public:
     ConfigurationFile (std::string File);
     ConfigurationFile (std::string File, bool IsReadOnly);
@@ -28,6 +29,7 @@ public:
     std::string GetFileName();
     size_t GetValue(std::string Section, std::string Property, std::string &Value);
     void DisplayAllLines();
+    void Reload();
     
     void InsertSection(std::string SectionName);
 };

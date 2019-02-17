@@ -36,8 +36,7 @@ ConfigurationFile::ConfigurationFile (std::string File, bool IsReadOnly)
 ///////////////////////////////////////////////////////////////////////////
 ConfigurationFile::~ConfigurationFile()
 {
-    ReadedLines.clear();
-    ReadedLines.shrink_to_fit(); // Shrink the capacity to fit the size (which is 0 now)
+    DeallocateCache();
 }
 
 //-------------------------------------------------------------------------
@@ -153,6 +152,7 @@ size_t ConfigurationFile::GetValue(std::string Section, std::string Property, st
 //
 // InsertSection:
 //   - SectionName should be without square brackets
+//   Will be inserted at the end
 ///////////////////////////////////////////////////////////////////////
 void ConfigurationFile::InsertSection(std::string SectionName)
 {
@@ -169,5 +169,30 @@ void ConfigurationFile::InsertSection(std::string SectionName)
     }
     
     IniFile << FinalName;
+    IniFile.close();
 }
 //---------------------------------------------------------------------
+
+//
+// Reload:
+//   Actualize cache
+///////////////////////////////////////////////////////////////////////
+void ConfigurationFile::Reload()
+{
+    DeallocateCache();
+    InitFile();
+}
+//---------------------------------------------------------------------
+
+//
+// DeallocateCache:
+//   - Clear the vector and deallocate memory
+///////////////////////////////////////////////////////////////////////
+void ConfigurationFile::DeallocateCache()
+{
+    ReadedLines.clear();
+    ReadedLines.shrink_to_fit(); // Shrink the capacity to fit the size (which is 0 now)
+}
+//---------------------------------------------------------------------
+
+
