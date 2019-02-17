@@ -43,6 +43,8 @@ int main()
         
         develop_test.InsertSection(std::string("Inserted from program"));
         
+        develop_test.InsertProperty(std::string("FIRE"), std::string("PropertyInsertedFromProgram"), std::string("Success!"));
+        develop_test.DisplayAllLines();
         std::cout << "\nYes!\n";
         return 0;
     }

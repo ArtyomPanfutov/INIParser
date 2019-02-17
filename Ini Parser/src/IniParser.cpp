@@ -159,7 +159,7 @@ size_t ConfigurationFile::GetValue(std::string Section, std::string Property, st
 void ConfigurationFile::InsertSection(std::string SectionName)
 {
     std::string FinalName;
-    FinalName = std::string("[") + SectionName + std::string("]");
+    FinalName = std::string("\n[") + SectionName + std::string("]");
     
     if (!IniFile.is_open())
     {
@@ -210,14 +210,30 @@ inline void ConfigurationFile::ClearCache()
 //
 // InsertProperty:
 //   Section  - Section name. Can be with or without square brackets. If section will not be found -> insert it
-//   Property - Property name.
+//   Property - Property name. There is no check for existing properties with the same name. Entry will be inserted anyway.
 //   Found    - Value.
 ///////////////////////////////////////////////////////////////////////
 void ConfigurationFile::InsertProperty(std::string Section, std::string Property, std::string Value)
 {
-  
+    int SectionLine;
+    std::vector<std::string>::iterator IniIterator;
+    SectionLine = FindSection(Section);
     
-
+    if (SectionLine < 0)
+    {
+        InsertSection(Section);
+        SectionLine = FindSection(Section);
+        
+        if (SectionLine < 0)
+            throw std::runtime_error("Section not found and can't be inserted!");
+    }
+    
+    IniIterator = ReadedLines.begin();
+    Value = Property + std::string("=") + Value;
+    SectionLine++;
+    ReadedLines.insert(IniIterator + SectionLine, Value);
+    
+    CopyToFile();
 }
 //---------------------------------------------------------------------
 
@@ -268,3 +284,26 @@ int ConfigurationFile::FindSection(std::string Section)
         return -1;
 }
 //---------------------------------------------------------------------
+
+//
+// CopyToFile:
+//  All in the configuration file will be replaced with strings from the cache
+///////////////////////////////////////////////////////////////////////
+void ConfigurationFile::CopyToFile()
+{
+    // TODO: Now file will be truncated and then will be rewrited. Need to save old file nearby for safety.
+    IniFile.open(FileName, std::ios::trunc | std::ios::out);
+    if (!IniFile.is_open())
+    {
+        throw std::runtime_error("Can't open configuration file!");
+    }
+
+    
+    for (const auto& Line : ReadedLines)
+    {
+        IniFile << std::string("\n") + Line;
+    }
+    
+    IniFile.close();
+}
+//--------------------------------------------------------------------

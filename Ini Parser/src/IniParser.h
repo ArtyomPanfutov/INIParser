@@ -19,7 +19,8 @@ class ConfigurationFile
     std::fstream             IniFile;
     std::vector<std::string> ReadedLines;
     
-    void InitFile();
+    void        InitFile();
+    void        CopyToFile();
     inline void DeallocateCache();
     inline void ClearCache();
 public:
