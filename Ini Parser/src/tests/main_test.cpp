@@ -26,7 +26,7 @@ int main()
     {
         LogWriter Clerk;
         std::string FoundValue;
-        int RetVal;
+        size_t RetVal;
         
         ConfigurationFile develop_test(std::string("develop_test.ini"));
         Clerk.ScratchMessage(std::string("Configuration file: " + develop_test.GetFileName()));
@@ -40,6 +40,8 @@ int main()
             Clerk.ScratchMessage(std::string("Found value = ") +  FoundValue);
         else
             Clerk.ScratchMessage(std::string("Not found."));
+        
+        develop_test.InsertSection(std::string("Inserted from program"));
         
         std::cout << "\nYes!\n";
         return 0;

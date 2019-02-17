@@ -24,9 +24,12 @@ public:
     ConfigurationFile (std::string File);
     ConfigurationFile (std::string File, bool IsReadOnly);
     ~ConfigurationFile();
+    
     std::string GetFileName();
-    int GetValue(std::string Section, std::string Property, std::string &Value);
+    size_t GetValue(std::string Section, std::string Property, std::string &Value);
     void DisplayAllLines();
+    
+    void InsertSection(std::string SectionName);
 };
 
 #endif /* IniParser_h */

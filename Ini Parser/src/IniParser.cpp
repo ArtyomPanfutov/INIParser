@@ -101,7 +101,7 @@ void ConfigurationFile::DisplayAllLines()
 //   Found    - Found value.
 // Returns 0 if success.
 //////////////////////////////////////////////////////////////////////
-int ConfigurationFile::GetValue(std::string Section, std::string Property, std::string &Found)
+size_t ConfigurationFile::GetValue(std::string Section, std::string Property, std::string &Found)
 {
     std::size_t       FoundPosition;
     std::size_t       StartPosition;
@@ -139,7 +139,7 @@ int ConfigurationFile::GetValue(std::string Section, std::string Property, std::
                 FoundPosition = Line.find("=");
                 
                 if (FoundPosition == std::string::npos)
-                    return -1;
+                    return 100;
                 
                 Found = Line.substr(++FoundPosition, Line.length() - FoundPosition);
                 return 0;
@@ -149,3 +149,25 @@ int ConfigurationFile::GetValue(std::string Section, std::string Property, std::
     return -1;
 }
 //--------------------------------------------------------------------
+
+//
+// InsertSection:
+//   - SectionName should be without square brackets
+///////////////////////////////////////////////////////////////////////
+void ConfigurationFile::InsertSection(std::string SectionName)
+{
+    std::string FinalName;
+    FinalName = std::string("[") + SectionName + std::string("]");
+    
+    if (!IniFile.is_open())
+    {
+        IniFile.open(FileName, std::ios::out | std::ios::app);
+        if (!IniFile.is_open())
+        {
+            throw std::runtime_error("Can't open configuration file!");
+        }
+    }
+    
+    IniFile << FinalName;
+}
+//---------------------------------------------------------------------
