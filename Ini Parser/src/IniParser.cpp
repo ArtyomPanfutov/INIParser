@@ -32,6 +32,18 @@ ConfigurationFile::ConfigurationFile (std::string File, bool IsReadOnly)
 //-------------------------------------------------------------------------
 
 //
+// Destructor
+///////////////////////////////////////////////////////////////////////////
+ConfigurationFile::~ConfigurationFile()
+{
+    ReadedLines.clear();
+    ReadedLines.shrink_to_fit(); // Shrink the capacity to fit the size (which is 0 now)
+}
+
+//-------------------------------------------------------------------------
+
+
+//
 // InitFile() - Open file and read all lines
 ///////////////////////////////////////////////////////////////////////////
 void ConfigurationFile::InitFile()

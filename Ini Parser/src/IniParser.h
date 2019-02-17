@@ -23,6 +23,7 @@ class ConfigurationFile
 public:
     ConfigurationFile (std::string File);
     ConfigurationFile (std::string File, bool IsReadOnly);
+    ~ConfigurationFile();
     std::string GetFileName();
     int GetValue(std::string Section, std::string Property, std::string &Value);
     void DisplayAllLines();
