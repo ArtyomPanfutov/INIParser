@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9A72322B221F2C8700F095A1 /* Test_1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9A723229221F2C8700F095A1 /* Test_1.cpp */; };
 		9AF6E46F2206140500446156 /* IniParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AF6E46E2206140500446156 /* IniParser.cpp */; };
 		9AF6E4722206149300446156 /* main_test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9AF6E4712206149300446156 /* main_test.cpp */; };
 /* End PBXBuildFile section */
@@ -24,6 +25,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9A723229221F2C8700F095A1 /* Test_1.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Test_1.cpp; sourceTree = "<group>"; };
+		9A72322A221F2C8700F095A1 /* Test_1.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Test_1.hpp; sourceTree = "<group>"; };
 		9AF6E4622206128300446156 /* Ini Parser */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Ini Parser"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AF6E46D2206132900446156 /* IniParser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IniParser.h; sourceTree = "<group>"; };
 		9AF6E46E2206140500446156 /* IniParser.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IniParser.cpp; sourceTree = "<group>"; };
@@ -79,6 +82,8 @@
 			isa = PBXGroup;
 			children = (
 				9AF6E4712206149300446156 /* main_test.cpp */,
+				9A723229221F2C8700F095A1 /* Test_1.cpp */,
+				9A72322A221F2C8700F095A1 /* Test_1.hpp */,
 			);
 			path = tests;
 			sourceTree = "<group>";
@@ -140,6 +145,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9AF6E4722206149300446156 /* main_test.cpp in Sources */,
+				9A72322B221F2C8700F095A1 /* Test_1.cpp in Sources */,
 				9AF6E46F2206140500446156 /* IniParser.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
